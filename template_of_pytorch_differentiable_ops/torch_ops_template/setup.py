@@ -10,7 +10,7 @@ setup(
         CUDAExtension(
             name="torch_ops_template._C",
             sources=[
-            #"src/aggregator_impl.cu",
+            "src/torch_template_impl.cu",
             #"src/forward.cu",
             #"src/backward.cu",
             "torch_ops_template.cu",

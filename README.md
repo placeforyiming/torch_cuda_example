@@ -5,4 +5,4 @@
 
 3. Besides the cuda ops, if the differentiable pytorch ops are further needed, the folder template_of_pytorch_differentiable_ops gives an extendable template.
 
-custom_linear_ops gives an runnable example of a linear ops.
+4. custom_linear_ops gives an runnable example of a linear ops.
