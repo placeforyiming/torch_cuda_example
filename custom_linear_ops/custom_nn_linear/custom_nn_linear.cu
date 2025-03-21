@@ -64,7 +64,7 @@ CustomNNLinearBackwardCUDA(
     const torch::Tensor& trainable_weights,
     const torch::Tensor& topk_grads,
     const torch::Tensor& pos_1st_dim_of_topk_grads_int,
-    const torch::Tensor& pos_2st_dim_of_topk_grads_int,
+    const torch::Tensor& pos_2nd_dim_of_topk_grads_int,
     const int in_features, const int out_features, const int topk_grad_buffer,
     const torch::Tensor& grad_pos_buffer)
 {
@@ -92,7 +92,7 @@ CustomNNLinearBackwardCUDA(
         topk_grad_buffer,
         topk_grads.contiguous().data_ptr<float>(),
         pos_1st_dim_of_topk_grads_int.contiguous().data_ptr<int>(),
-        pos_2st_dim_of_topk_grads_int.contiguous().data_ptr<int>()
+        pos_2nd_dim_of_topk_grads_int.contiguous().data_ptr<int>()
     );
     
 	return std::make_tuple(input_tensor_grad, trainable_weights_grad);

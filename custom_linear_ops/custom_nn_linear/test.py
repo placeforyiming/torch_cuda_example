@@ -40,7 +40,7 @@ custom_nn_linear_layer.set_weights(np_weight)
 t_start = time.time()
 result = custom_nn_linear_layer(input_tensor_custom)
 t_end = time.time()
-output, topk_grads, pos_1st_dim_of_topk_grads, pos_2st_dim_of_topk_grads = result
+output, topk_grads, pos_1st_dim_of_topk_grads, pos_2nd_dim_of_topk_grads = result
 print ("custom nn linear result:")
 print (output)
 print ("custom nn linear time cost:", t_end-t_start)
@@ -57,5 +57,5 @@ print ("============== check the top k grads ============")
 print (topk_grads)
 for i in range(top_k_grads):
     idx_1 = pos_1st_dim_of_topk_grads[i]
-    idx_2 = pos_2st_dim_of_topk_grads[i]
+    idx_2 = pos_2nd_dim_of_topk_grads[i]
     print (custom_nn_linear_layer.trainable_weights.grad[idx_1, idx_2])

@@ -69,7 +69,7 @@ void CustomOpsNNLinear::CustomNNLinear::backward(
     const int topk_grad_buffer,
     float* topk_grads,
     int* pos_1st_dim_of_topk_grads_int,
-    int* pos_2st_dim_of_topk_grads_int,
+    int* pos_2nd_dim_of_topk_grads_int,
     bool debug)
 {
     // get memory for key-value orderer
@@ -101,7 +101,7 @@ void CustomOpsNNLinear::CustomNNLinear::backward(
         key_value_state.values,
         topk_grads,
         pos_1st_dim_of_topk_grads_int,
-        pos_2st_dim_of_topk_grads_int), debug);
+        pos_2nd_dim_of_topk_grads_int), debug);
 
     return;
 }

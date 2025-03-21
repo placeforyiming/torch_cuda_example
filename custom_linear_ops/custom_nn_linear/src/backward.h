@@ -26,7 +26,7 @@ namespace BACKWARD
         int* values,
 		float* topk_grads,
 		int* pos_1st_dim_of_topk_grads_int,
-		int* pos_2st_dim_of_topk_grads_int);
+		int* pos_2nd_dim_of_topk_grads_int);
 }
 
 #endif

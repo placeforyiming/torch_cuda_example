@@ -98,14 +98,14 @@ __global__ void assigningTopK(
     int* values,
     float* topk_grads,
     int* pos_1st_dim_of_topk_grads_int,
-    int* pos_2st_dim_of_topk_grads_int)
+    int* pos_2nd_dim_of_topk_grads_int)
 {
     const int n = blockIdx.x * blockDim.x + threadIdx.x;
     if (n < topk_num) {
         topk_grads[n] = keys[n];
         int idx = values[n];
         pos_1st_dim_of_topk_grads_int[n] = idx/in_features;
-        pos_2st_dim_of_topk_grads_int[n] = idx - pos_1st_dim_of_topk_grads_int[n]*in_features;
+        pos_2nd_dim_of_topk_grads_int[n] = idx - pos_1st_dim_of_topk_grads_int[n]*in_features;
     }
     return;
 }
@@ -118,12 +118,12 @@ void BACKWARD::assigning_topk(
     int* values,
     float* topk_grads,
     int* pos_1st_dim_of_topk_grads_int,
-    int* pos_2st_dim_of_topk_grads_int) {
+    int* pos_2nd_dim_of_topk_grads_int) {
 
     assigningTopK <<<out_features, in_features>>> (
         topk_num, in_features, 
         keys, values, topk_grads, 
-        pos_1st_dim_of_topk_grads_int, pos_2st_dim_of_topk_grads_int
+        pos_1st_dim_of_topk_grads_int, pos_2nd_dim_of_topk_grads_int
     );
 
     return;

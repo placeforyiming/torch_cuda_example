@@ -14,7 +14,7 @@ class _CustomNNLinear(torch.autograd.Function):
         trainable_weights, # tensor::float
         topk_grads, # tensor::float
         pos_1st_dim_of_topk_grads, # tensor::int
-        pos_2st_dim_of_topk_grads, # tensor::int
+        pos_2nd_dim_of_topk_grads, # tensor::int
         in_features, # int
         out_features, # int
         topk_grad_buffer # int
@@ -26,7 +26,7 @@ class _CustomNNLinear(torch.autograd.Function):
             trainable_weights,
             # topk_grads,
             # pos_1st_dim_of_topk_grads,
-            # pos_2st_dim_of_topk_grads,
+            # pos_2nd_dim_of_topk_grads,
             # weights_of_topk_grads,
             in_features,
             out_features,
@@ -46,7 +46,7 @@ class _CustomNNLinear(torch.autograd.Function):
             trainable_weights,
             topk_grads,
             pos_1st_dim_of_topk_grads,
-            pos_2st_dim_of_topk_grads,
+            pos_2nd_dim_of_topk_grads,
             grad_pos_buffer
         )
         return output
@@ -63,7 +63,7 @@ class _CustomNNLinear(torch.autograd.Function):
         trainable_weights, \
         topk_grads, \
         pos_1st_dim_of_topk_grads, \
-        pos_2st_dim_of_topk_grads, \
+        pos_2nd_dim_of_topk_grads, \
         grad_pos_buffer = ctx.saved_tensors
 
         # Restructure args as C++ method expects them
@@ -73,7 +73,7 @@ class _CustomNNLinear(torch.autograd.Function):
             trainable_weights,
             topk_grads,
             pos_1st_dim_of_topk_grads,
-            pos_2st_dim_of_topk_grads,
+            pos_2nd_dim_of_topk_grads,
             in_features,
             out_features,
             topk_grad_buffer,
@@ -112,7 +112,7 @@ class CustomNNLinear(nn.Module):
         self.topk_grad_buffer = args_3
         self.register_buffer('topk_grads', torch.zeros(self.topk_grad_buffer, dtype=torch.float))
         self.register_buffer('pos_1st_dim_of_topk_grads', torch.zeros(self.topk_grad_buffer, dtype=torch.int))
-        self.register_buffer('pos_2st_dim_of_topk_grads', torch.zeros(self.topk_grad_buffer, dtype=torch.int))
+        self.register_buffer('pos_2nd_dim_of_topk_grads', torch.zeros(self.topk_grad_buffer, dtype=torch.int))
 
     def to(self, *args, **kwargs):
         self = super().to(*args, **kwargs)
@@ -133,10 +133,10 @@ class CustomNNLinear(nn.Module):
             self.trainable_weights,
             self.topk_grads,
             self.pos_1st_dim_of_topk_grads,
-            self.pos_2st_dim_of_topk_grads,
+            self.pos_2nd_dim_of_topk_grads,
             self.in_features,
             self.out_features,
             self.topk_grad_buffer
         )
 
-        return output, self.topk_grads, self.pos_1st_dim_of_topk_grads, self.pos_2st_dim_of_topk_grads
+        return output, self.topk_grads, self.pos_1st_dim_of_topk_grads, self.pos_2nd_dim_of_topk_grads
